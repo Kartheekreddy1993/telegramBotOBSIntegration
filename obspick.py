@@ -5,11 +5,18 @@ import os
 from datetime import datetime
 import sys
 import re
+import json
 
-file_path = r"C:\Program Files\Colorbar Select\playitems.txt"
+# === CONFIG ===
+with open("config.json", "r") as f:
+    config = json.load(f)
+
+
+file_path = config["NOTEPAD_FILE"]
+obs_port = config["OBS_PORT"]
 
 # Connect to OBS
-cl = obs.ReqClient(host='localhost', port=4455, password='secret', timeout=3)
+cl = obs.ReqClient(host='localhost', port=obs_port, password='secret', timeout=3)
 
 while True:
     response = cl.get_current_program_scene()
